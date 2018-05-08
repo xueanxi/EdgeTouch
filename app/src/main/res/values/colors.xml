@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF009688</color>
+
+    <color name="setting_bg_color">#E2E2E2</color>
+    <color name="setting_item_bg_color">#fdfdfd</color>
+    <color name="setting_item_title_color">#202020</color>
+    <color name="setting_item_summery_color">#727272</color>
+
+    <color name="dialog_bg_color">#fcfcfc</color>
+
+    <color name="delete_target_hover_tint">#DAFF0000</color>
+    <color name="uninstall_target_hover_tint">#FFF0592B</color>
+    <color name="info_target_hover_tint">#FF009688</color>
+    <color name="cling_scrim_background">#80000000</color>
+
+    <color name="focused_background">#80c6c5c5</color>
+
+    <color name="workspace_icon_text_color">#FFF</color>
+
+    <color name="workspace_edge_effect_color">#FFFFFFFF</color>
+    <color name="folder_edge_effect_color">#FF757575</color>
+
+    <color name="quantum_panel_text_color">#FF666666</color>
+    <color name="quantum_panel_bg_color">#FFF5F5F5</color>
+    <color name="quantum_panel_bg_color_dark">#FF374248</color>
+    <color name="app_picker_text_color_dark">#DE000000</color>
+    <color name="app_picker_bg_color">#FFFAFAFA</color>
+    <color name="app_picker_bt_color">#FF009688</color>
+
+    <color name="outline_color">#FFFFFFFF</color>
+
+    <!-- Containers -->
+    <!--MODIFIED-START by liang.yu,2016-07-29,BUG-2602547-->
+    <color name="container_fastscroll_thumb_inactive_color">#ffffff</color>
+    <color name="container_fastscroll_thumb_active_color">#ffffff</color>
+    <!--MODIFIED-END by liang.yu,BUG-2602547-->
+
+    <!-- All Apps -->
+    <color name="all_apps_grid_section_text_color">#009688</color>
+    <color name="all_apps_search_market_button_focused_bg_color">#dddddd</color>
+
+    <!-- Widgets view -->
+    <color name="widgets_view_section_text_color">#FFFFFF</color>
+    <color name="widgets_view_item_text_color">#C4C4C4</color>
+    <color name="widgets_cell_color">#263238</color>
+    <!-- FR718694-feng1.zhang add widget horizontal scrollbar begin-->
+    <color name="widgets_scrollbar_track_horizontal_color">#5e676c</color>
+    <!-- FR718694-feng1.zhang add widget horizontal scrollbar end-->
+    <!-- FR 1088976 20150917 xiangpan.hou added for Charge Alert begin -->
+    <color name="ltgrey">#ffe0e0e0</color><!--Task 2602378 20160731 mingzhi.yuan add-->
+
+    <!-- Wallpaper favorite -->
+    <color name="wallpaper_favorite_translucent_gray">#44000000</color>
+    <color name="home_edit_bar_color">#A8000000</color>
+
+    <color name="icon_color_highlight">#ffCCCCCC</color>
+    <color name="home_edit_button_color">#7e000000</color>
+    <color name="home_edit_text_color">#99FFFFFF</color>
+    <color name="home_edit_text_background">#b2000000</color>
+    <color name="home_edit_text">#FFFFFFFF</color>
+    <color name="quantum_panel_bg_color_for_transparent">#4c000000</color>
+    <color name="edittext_hightlight_color">#33009eff</color>
+    <color name="folder_name_hint_color">#DEFFFFFF</color>
+    <color name="folder_panel_text_color">#ffffffff</color>
+    <color name="picker_app_status_bar_color">#FFE0E0E0</color>
+    <color name="picker_app_navigation_bar_color">#FF000000</color>
+    <color name="picker_app_select_shadow_color">#3D000000</color>
+    <color name="picker_app_select_color">#FFFAFAFA</color>
+    <color name="picker_app_scroll_bar_color">#FF4FABFF</color>
+
+
+    <!-- Popup container -->
+    <color name="popup_header_background_color">#EEEEEE</color> <!-- Gray 200 -->
+    <color name="popup_background_color">#FFF</color>
+    <color name="notification_icon_default_color">#757575</color> <!-- Gray 600 -->
+    <color name="notification_color_beneath">#E0E0E0</color> <!-- Gray 300 -->
+
+    <color name="badge_color">@android:color/transparent</color>
+    <color name="folder_badge_color">#ffffffff</color>
+
+    <color name="legacy_icon_background">#FFFFFF</color>
+    <color name="icon_background">#ff4285f4</color>
+</resources>

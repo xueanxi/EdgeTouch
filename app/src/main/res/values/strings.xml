@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">EageTouch</string>
+    <string name="function_introduce">Function_introduce</string>
+    <string name="toast_not_permission_overlay">Please go to open overly permission</string>
+    <string name="accessibilityservice_title">accessibilityservice_title</string>
+    <string name="accessibility_service_description">accessibility_service_description</string>
+    <string name="accessibilityservice_dialog_title">"Accessibility Service"</string>
+    <string name="accessibilityservice_dialog_content">"To support this function, you need to open the Joy Touch Accessibility Service."</string>
+</resources>

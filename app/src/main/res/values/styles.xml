@@ -22,4 +22,13 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+    <style name="dialog_button_text">
+        <item name="android:textSize">15.0dip</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:shadowColor">#7fffffff</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">0.65</item>
+        <item name="android:shadowRadius">1.0</item>
+    </style>
+
 </resources>

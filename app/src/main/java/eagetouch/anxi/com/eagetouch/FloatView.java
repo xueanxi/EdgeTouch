@@ -1,12 +1,16 @@
 package eagetouch.anxi.com.eagetouch;
 
-import android.app.Instrumentation;
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Message;
 import android.os.SystemClock;
-import android.text.TextUtils;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,64 +21,42 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.RejectedExecutionException;
+
+import eagetouch.anxi.com.eagetouch.accessibility.EdgeAccessibilitySever;
 
 /**
  * Created by user on 11/29/17.
  */
 
 public class FloatView implements View.OnTouchListener, CompoundButton.OnCheckedChangeListener{
-    private static final String TAG = "Ax/FloatView";
+    private static final String TAG = "=FloatView";
 
-    private static final int DEFAULT_TIME_LOAD = 19;            // 默认加载时间
-    private static final int DEFAULT_TIME_PLAY = 35;            // 默认战斗时间
-
-
+    private static final int TIME_TOUCH_VALID = 500;            // 从用户触发时间的有效时间
 
     private Context mContext;
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams mParams;
     private View mContentView;        // 悬浮窗的布局
-    private TextView mTvLoad;                   // 显示加载时间的文本
-    private TextView mTvPlay;                   // 显示游戏时间的文本
-    private TextView mTvLoadTimeCount;          // 记录加载了多长时间的文本
-    private TextView mTvPlayTimeCount;          // 记录游戏了多长事件的文本
-    private Switch mSwitch;                     // 功能的开关
-    private ImageButton mBtClose;               // 关闭悬浮窗的按钮
-    private Button mBtLoadReduce;               // 减少加载等待时间的按钮
-    private Button mBtLoadPlus;                 // 增加加载等待时间的按钮
-    private Button mBtPlayReduce;               // 减少游戏等待时间的按钮
-    private Button mBtPlayPlus;                 // 增加游戏等待时间的按钮
+
 
     private int mViewWidth;                     // 悬浮窗的宽度
     private int mViewHeight;                    // 悬浮窗的高度
     private int mScreenWidth;                   // 手机屏幕的宽度
     private int mScreenHeight;                  // 手机屏幕的高度
 
-    float mXInScreen;
-    float mYInScreen;
-    float mXDownInScreen;
-    float mYDownInScreen;
-    float mXInView;
-    float mYInView;
-    int mStatusBarHeight = 0;                   // 状态栏的高度
-    boolean mIsWork = false;                    // 是否正在工作
-    int mLoadTime = 0;                          // 加载等待时间
-    int mPlayTime = 0;                          // 游戏等待时间
-    ExecutorService mExecutor;
-    boolean mIsCountLoadTime = false;           // 是否在统计加载时间
-    boolean mIsCountPlayTime = false;           // 是否在统计游戏时间
+    float mStartTouchX;
+    float mStartTouchTime;
+    AlphaAnimation mAlphaAnimation;
+    Vibrator mVibrator;
+
 
     public FloatView(Context context) {
         LogUtils.d(TAG, "FloatView()");
@@ -85,12 +67,12 @@ public class FloatView implements View.OnTouchListener, CompoundButton.OnChecked
     private void init() {
         LogUtils.d(TAG, "init()");
         getWindowManager();
-        getStatusBarHeight();
         mScreenWidth = getScreenWidth(mContext);
         mScreenHeight = getScreenHeight(mContext);
         mViewWidth = (int) mContext.getResources().getDimension(R.dimen.float_view_width);
         mViewHeight = mScreenHeight;
         initFloatView();
+        mVibrator = (Vibrator) mContext.getSystemService(Service.VIBRATOR_SERVICE);
     }
 
     /**
@@ -114,6 +96,7 @@ public class FloatView implements View.OnTouchListener, CompoundButton.OnChecked
         ViewGroup.LayoutParams lp;
         mContentView = new View(mContext);
         mContentView.setBackgroundColor(Color.RED);
+        mContentView.setAlpha(0f);
         mParams = new WindowManager.LayoutParams();
         mParams.setTitle("EdgeBar");
         //设置window type
@@ -130,13 +113,19 @@ public class FloatView implements View.OnTouchListener, CompoundButton.OnChecked
         mParams.height = mViewHeight;
         mParams.x = 0;
         mParams.y = 0;
-        //mContentView.setOnTouchListener(this);
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doback2();
-            }
-        });
+        mContentView.setOnTouchListener(this);
+
+        mAlphaAnimation = new AlphaAnimation(1.0f, 0.2f);
+        //设置动画持续时长
+        mAlphaAnimation.setDuration(1000);
+        //设置动画结束之后的状态是否是动画的最终状态，true，表示是保持动画结束时的最终状态
+        //mAlphaAnimation.setFillAfter(true);
+        //设置动画结束之后的状态是否是动画开始时的状态，true，表示是保持动画开始时的状态
+        //mAlphaAnimation.setFillBefore(true);
+        //设置动画的重复模式：反转REVERSE和重新开始RESTART
+        //mAlphaAnimation.setRepeatMode(AlphaAnimation.REVERSE);
+        //设置动画播放次数
+        mAlphaAnimation.setRepeatCount(AlphaAnimation.INFINITE);
     }
 
 
@@ -179,76 +168,29 @@ public class FloatView implements View.OnTouchListener, CompoundButton.OnChecked
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 LogUtils.d(TAG, "=== down ===");
-                mXInScreen = event.getRawX();
-                //mYInScreen = event.getRawY() - getStatusBarHeight();
-                mYInScreen = event.getRawY();
-                mXDownInScreen = event.getRawX();
-                //mYDownInScreen = event.getRawY() - getStatusBarHeight();
-                mYDownInScreen = event.getRawY();
-                mXInView = event.getX();
-                mYInView = event.getY();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                LogUtils.d(TAG, "=== move ===");
-                mXInScreen = event.getRawX();
-                //mYInScreen = event.getRawY() - getStatusBarHeight();
-                mYInScreen = event.getRawY();
-                updateViewPosition();
+                if(mVibrator!= null){
+                    mVibrator.vibrate(50);
+                }
+
+                mStartTouchX = event.getRawX();
+                mStartTouchTime = System.currentTimeMillis();
+
                 break;
             case MotionEvent.ACTION_UP:
                 LogUtils.d(TAG, "=== up ===");
-                mXInScreen = event.getRawX();
-                mYInScreen = event.getRawY();
-                updateViewPosition();
+                float newX = event.getRawX();
+                if((newX - mStartTouchX > mScreenWidth/5)
+                        && (System.currentTimeMillis() - mStartTouchTime <TIME_TOUCH_VALID)){
+                    doback();
+                }
                 break;
         }
         return true;
     }
 
 
-    /**
-     * 更新悬浮球的位置
-     */
-    private void updateViewPosition() {
-        if (mParams == null) return;
 
-        mParams.x = (int) (mXInScreen - mXInView);
-        mParams.y = (int) (mYInScreen - mYInView) - mStatusBarHeight;
 
-        if (mParams.x < 0) {
-            mParams.x = 0;
-        }
-        if (mParams.y < 0) {
-            mParams.y = 0;
-        }
-        if ((mParams.x + mViewWidth) > mScreenWidth) {
-            mParams.x = mScreenWidth - mViewWidth;
-        }
-        if (mParams.y + mViewHeight > mScreenHeight) {
-            mParams.y = mScreenHeight - mViewHeight;
-        }
-        getWindowManager().updateViewLayout(mContentView, mParams);
-    }
-
-    /**
-     * 获得状态栏的高度，用于调整悬浮窗的位置
-     *
-     * @return
-     */
-    private int getStatusBarHeight() {
-        if (mStatusBarHeight == 0) {
-            try {
-                Class<?> c = Class.forName("com.android.internal.R$dimen");
-                Object o = c.newInstance();
-                Field field = c.getField("status_bar_height");
-                int x = (Integer) field.get(o);
-                mStatusBarHeight = mContext.getResources().getDimensionPixelSize(x);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return mStatusBarHeight;
-    }
 
     /**
      * 获得屏幕的高度
@@ -291,17 +233,12 @@ public class FloatView implements View.OnTouchListener, CompoundButton.OnChecked
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case 1000:
-                    mTvLoadTimeCount.setText("Load Time: " + msg.arg1);
-                    break;
-                case 1001:
-                    mTvPlayTimeCount.setText("Play Time: " + msg.arg1);
-                    break;
+
             }
         }
     };
 
-    private void doback(){
+    private void doback2(){
 
 //                    KeyEvent keyEventDown = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK);
 //                    KeyEvent keyEventUp = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK);
@@ -344,22 +281,31 @@ public class FloatView implements View.OnTouchListener, CompoundButton.OnChecked
         }
     }
 
-    private void doback2(){
-        final Instrumentation in = new Instrumentation();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(100);
-                } catch (Exception e) {
-                    Log.d(TAG,e.toString());
-                }
-                in.sendKeyDownUpSync(KeyEvent.KEYCODE_BACK);
-            }
-        }).start();
+    private void doback(){
+        Intent intent = new Intent(mContext, EdgeAccessibilitySever.class);
+        intent.setPackage(mContext.getPackageName());
+        intent.setAction(EdgeAccessibilitySever.RUN_BACK);
+        mContext.startService(intent);
+
+        lightFloatView();
     }
 
-    private void doback3(){
+    private void lightFloatView() {
+        if(mContentView!= null ){
+            mContentView.setAlpha(1f);
+            AnimatorSet animatorSet = new AnimatorSet();
+            ObjectAnimator alpha = ObjectAnimator.ofFloat(mContentView, "alpha", 1f, 0f);
+            animatorSet.setDuration(200);
+            animatorSet.setInterpolator(new AccelerateInterpolator());
+            animatorSet.playTogether(alpha);
+            animatorSet.start();
+        }
+    }
 
+    public void onDestory(){
+        if(mVibrator!=null){
+            mVibrator.cancel();
+            mVibrator = null;
+        }
     }
 }

@@ -11,8 +11,10 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import eagetouch.anxi.com.eagetouch.accessibility.AccessibilyUtils;
 import eagetouch.anxi.com.eagetouch.utils.PermissionUtils;
 import eagetouch.anxi.com.eagetouch.utils.ToastUtils;
+
 
 public class MainActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initSwitch();
+        startAccessibilityService();
     }
 
     private void initSwitch() {
@@ -65,7 +68,9 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     }
 
     private void startAccessibilityService() {
-
+        if(AccessibilyUtils.isAccessibilitySettingsOn(this.getApplicationContext())){
+           return;
+        }
         // 隐式调用系统设置界面
         CustomDialog.Builder dialog = new CustomDialog.Builder(this);
         CustomDialog d =
@@ -89,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
         d.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                finish();
+                //finish();
             }
         });
         d.show();

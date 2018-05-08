@@ -6,4 +6,6 @@
     <string name="accessibility_service_description">accessibility_service_description</string>
     <string name="accessibilityservice_dialog_title">"Accessibility Service"</string>
     <string name="accessibilityservice_dialog_content">"To support this function, you need to open the Joy Touch Accessibility Service."</string>
+    <string name="accessibilityservice_dialog_button_ok">"OK"</string>
+    <string name="accessibilityservice_dialog_button_cancel">"CANCEL"</string>
 </resources>

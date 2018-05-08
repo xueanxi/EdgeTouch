@@ -49,7 +49,7 @@
 
         <View
             android:layout_width="fill_parent"
-            android:layout_height="1.0px"
+            android:layout_height="0.5dp"
             android:background="#ffd0d0d0" />
 
         <LinearLayout
@@ -65,14 +65,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/button_bg_white"
+                android:background="@color/dialog_bg_color"
                 android:gravity="center"
                 android:text="@string/accessibilityservice_dialog_button_ok" />
 
-            <ImageView
-                android:layout_width="1dp"
+            <View
+                android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:background="@color/alpha_white" />
+                android:background="@color/setting_item_summery_color" />
 
             <Button
                 android:id="@+id/negativeButton"
@@ -80,7 +80,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/button_bg_white"
+                android:background="@color/dialog_bg_color"
                 android:gravity="center"
                 android:text="@string/accessibilityservice_dialog_button_cancel" />
         </LinearLayout>

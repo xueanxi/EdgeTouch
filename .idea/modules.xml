@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EageTouch.iml" filepath="$PROJECT_DIR$/EageTouch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EdgeTouch.iml" filepath="$PROJECT_DIR$/EdgeTouch.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

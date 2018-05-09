@@ -1,10 +1,14 @@
-package eagetouch.anxi.com.eagetouch;
+package eagetouch.anxi.com.eagetouch.server;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
+
+import eagetouch.anxi.com.eagetouch.EdgeTouchView;
+import eagetouch.anxi.com.eagetouch.LogUtils;
 
 
 /**
@@ -16,8 +20,9 @@ public class EdgeTouchService extends Service {
 
     public static final String ACTION_START_FLOAT_VIEW = "ACTION_START_FLOAT_VIEW";
     public static final String ACTION_STOP_FLOAT_VIEW = "ACTION_STOP_FLOAT_VIEW";
-    public static final String ACTION_START_JIANGHU = "ACTION_START_JIANGHU";
-    private FloatView mFloatView;
+    public static final String ACTION_RESET_THEME = "ACTION_RESET_THEME";
+    public static final String ACTION_RESTART_FLOAT_VIEW = "ACTION_RESTART_FLOAT_VIEW";
+    private EdgeTouchView mEdgeTouchView;
 
     @Override
     public void onCreate() {
@@ -37,8 +42,12 @@ public class EdgeTouchService extends Service {
                 case ACTION_STOP_FLOAT_VIEW:
                     stopFloatView();
                     break;
-                case ACTION_START_JIANGHU:
-                    startJianghuWork();
+                case ACTION_RESET_THEME:
+                    resetTheme();
+                    break;
+                case ACTION_RESTART_FLOAT_VIEW:
+                    restartFloatView();
+                    break;
             }
         } else if (intent == null) {
             // 服务异常被杀死的情况,intent 为 null
@@ -47,19 +56,6 @@ public class EdgeTouchService extends Service {
         return START_STICKY;
     }
 
-    private void startJianghuWork() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SystemClock.sleep(5000);
-                while(true){
-                    //ShellUtils.execCommand("input tap " +   KEY_ZIDONG_X + " " +  KEY_ZIDONG_Y, false);
-                    //ShellUtils.execCommand("input tap " +   KEY_ZIDONG_X + " " +  KEY_ZIDONG_Y, false);
-                    SystemClock.sleep(1000);
-                }
-            }
-        }).start();
-    }
 
     private void stopFloatView() {
         LogUtils.d(TAG,"service stopFloatView()");
@@ -71,17 +67,24 @@ public class EdgeTouchService extends Service {
         getFloatView().showFloatView();
     }
 
+    private void resetTheme(){
+        getFloatView().setFloatViewTheme();
+    }
+    private void restartFloatView(){
+        getFloatView().reStartFloatView();
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
 
-    public FloatView getFloatView() {
+    public EdgeTouchView getFloatView() {
         LogUtils.d(TAG,"getFloatView()");
-        if(mFloatView == null){
-            mFloatView = new FloatView(this);
+        if(mEdgeTouchView == null){
+            mEdgeTouchView = new EdgeTouchView(this);
         }
-        return mFloatView;
+        return mEdgeTouchView;
     }
 }

@@ -1,4 +1,4 @@
-package eagetouch.anxi.com.eagetouch.accessibility;
+package eagetouch.anxi.com.eagetouch.server;
 
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
@@ -12,11 +12,11 @@ import android.view.accessibility.AccessibilityEvent;
  */
 
 public class EdgeAccessibilitySever extends AccessibilityService {
+    private static final String TAG = "=EdgeAccessibilitySever";
 
     public static final String RUN_RECENT = "run_recent";
     public static final String RUN_BACK = "run_back";
     public static final String RUN_SPLIT_SCREEN = "run_split_screen";
-    private static final String TAG = "EdgeAccessibilitySever";
 
     @Override
     public void onCreate() {
@@ -37,19 +37,6 @@ public class EdgeAccessibilitySever extends AccessibilityService {
     }
 
     @Override
-    protected void onServiceConnected() {
-        AccessibilityServiceInfo accessibilityServiceInfo = new AccessibilityServiceInfo();
-        //指定包名
-        accessibilityServiceInfo.packageNames = new String[]{getPackageName()};
-        //指定事件类型
-        accessibilityServiceInfo.eventTypes = AccessibilityEvent.TYPE_VIEW_CLICKED
-                | AccessibilityEvent.TYPE_VIEW_FOCUSED;
-        accessibilityServiceInfo.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
-        accessibilityServiceInfo.notificationTimeout = 100;
-        setServiceInfo(accessibilityServiceInfo);
-    }
-
-    @Override
     public void onAccessibilityEvent(AccessibilityEvent accessibilityEvent) {
 
     }
@@ -61,6 +48,5 @@ public class EdgeAccessibilitySever extends AccessibilityService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
     }
 }

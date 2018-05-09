@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">返回助手</string>
+    <string name="function_off">关闭</string>
+    <string name="function_on">打开</string>
+    <string name="toast_not_permission">启动功能失败,请先开启下面两个权限.</string>
+    <string name="toast_funtion_on">启动成功,开始愉快玩耍吧!</string>
+    <string name="toast_funtion_off">功能已关闭</string>
+    <string name="mian_title_switch">功能</string>
+    <string name="mian_title_permission_request">权限要求</string>
+    <string name="main_title_preference">个性化</string>
+    <string name="open_accessbility_server">"前往开启\"返回助手\"辅助服务"</string>
+    <string name="get_overly_permission">开启显示悬浮窗的权限</string>
+    <string name="vibrate">震动</string>
+    <string name="touch_area_left">当前触摸区域在左边</string>
+    <string name="touch_area_right">当前触摸区域在右边</string>
+    <string name="theme_color">主题颜色</string>
+
+    <string name="theme_color_orange">橙色</string>
+    <string name="theme_color_white">白色</string>
+    <string name="theme_color_red">红色</string>
+    <string name="theme_color_green">绿色</string>
+    <string name="theme_color_blue">蓝色</string>
+    <string name="theme_color_yellow">黄色</string>
+    <string name="theme_color_pink">粉色</string>
+    <string name="theme_color_purple">紫色</string>
+    <string name="theme_color_alpha">透明</string>
+
+
+    <string name="accessibilityservice_title">返回助手</string>
+    <string name="accessibility_service_description">"请打开\"返回助手\"的开关，用于实现返回键的功能"</string>
+</resources>

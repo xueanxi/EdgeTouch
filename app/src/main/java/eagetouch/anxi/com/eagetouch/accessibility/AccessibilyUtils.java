@@ -5,7 +5,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
-import static android.content.ContentValues.TAG;
+import eagetouch.anxi.com.eagetouch.server.EdgeAccessibilitySever;
 
 /**
  * Created by anxi.xue on 2018/5/8.

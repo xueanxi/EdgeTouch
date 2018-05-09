@@ -13,14 +13,14 @@ public class LogUtils {
     public static void d(String tag,String content){
         if(mIsLog){
             Log.d(tag,content);
-            Log.d(TAG,tag+" "+content);
+            //Log.d(TAG,tag+" "+content);
         }
     }
 
     public static void e(String tag,String content){
         if(mIsLog){
             Log.e(tag,content);
-            Log.e(TAG,content);
+            //Log.e(TAG,content);
         }
     }
 }

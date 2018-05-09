@@ -3,8 +3,10 @@ package eagetouch.anxi.com.eagetouch;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.pad.android_independent_video_sdk.IndependentVideoAvailableState;
+import com.pad.android_independent_video_sdk.IndependentVideoListener;
+import com.pad.android_independent_video_sdk.IndependentVideoManager;
+
+import java.sql.Array;
 import java.util.ArrayList;
 
 import eagetouch.anxi.com.eagetouch.server.EdgeTouchService;
@@ -24,7 +32,7 @@ import eagetouch.anxi.com.eagetouch.utils.ToastUtils;
  * Created by user on 5/9/18.
  */
 
-public class ThemeActivity extends BaseActivity implements DialogListener{
+public class ThemeActivity extends BaseActivity implements DialogListener,IndependentVideoListener {
     private final String TAG = "=ThemeActivity";
 
     ListView mLvTheme;
@@ -37,6 +45,7 @@ public class ThemeActivity extends BaseActivity implements DialogListener{
     private int mSelectcolorIndex;
     ArrayList<ThemeData> mDataList;
     String mStrThemeUnLock;
+    private int mUserClickUnlockThemeIndex;
 
 
     @Override
@@ -45,6 +54,16 @@ public class ThemeActivity extends BaseActivity implements DialogListener{
         setContentView(R.layout.activity_theme);
         mLvTheme = (ListView) this.findViewById(R.id.list_theme);
         initList();
+
+        initDuoMengAd();
+    }
+
+    private void initDuoMengAd() {
+        IndependentVideoManager.newInstance().enableLog(true); //是否开启sdk的log，默认是开启
+        IndependentVideoManager.newInstance().init(this,true);//初始化
+        //IndependentVideoManager.newInstance().updateUserID(this,"abcd");//设置用户唯一标示，不是媒体id，是开发者用户体系中，用户的唯一标示，没有，则可以不设置。
+        IndependentVideoManager.newInstance().disableShowAlert(this,false);//是否使用多盟提示框，提示完成任务，默认为true
+        IndependentVideoManager.newInstance().addIndependentVideoListener(this);
     }
 
     private void initList() {
@@ -92,11 +111,10 @@ public class ThemeActivity extends BaseActivity implements DialogListener{
                     intent.setClass(ThemeActivity.this,EdgeTouchService.class);
                     intent.setAction(EdgeTouchService.ACTION_RESET_THEME);
                     startService(intent);
-
-
                 }else{
-                    doForXiaobao(position);
+                    //doForXiaobao(position);
                     // 处理用户点击了已经没有解锁的主题颜色
+                    mUserClickUnlockThemeIndex = position;
                     showDialog(getString(R.string.dialog_theme_ad_title),
                             getString(R.string.dialog_theme_ad_content),
                             getString(R.string.dialog_theme_ad_positive),
@@ -106,6 +124,32 @@ public class ThemeActivity extends BaseActivity implements DialogListener{
                 }
             }
         });
+    }
+
+    private void refreshList(){
+        //mSelectcolorIndex = PreferenceUtils.getThemeColor(0);
+        mStrThemeUnLock = PreferenceUtils.getThemeUnlock("");
+        if(mStrThemeUnLock == null || mStrThemeUnLock.equals("")){
+            mStrThemeUnLock = "0,1,2";
+            PreferenceUtils.setThemeUnlock(mStrThemeUnLock);
+        }
+        parseThemeUnLock();
+
+        mDataList = new ArrayList<ThemeData>();
+        ThemeData data = null;
+        for(int i = 0;i<mThemeColors.length;i++){
+            boolean isSelect = false;
+            boolean isUnLock = false;
+            if(i == mSelectcolorIndex){
+                isSelect = true;
+            }
+            if(mThemeUnLock.contains(String.valueOf(i))){
+                isUnLock = true;
+            }
+            data = new ThemeData(mThemeColors[i],mThemeTitles[i],isSelect,isUnLock);
+            mDataList.add(data);
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     private void doForXiaobao(int position) {
@@ -144,7 +188,7 @@ public class ThemeActivity extends BaseActivity implements DialogListener{
 
     @Override
     public void onPositiveClick() {
-        ToastUtils.toastShort(ThemeActivity.this,"onPositiveClick");
+        play_video();
     }
 
     @Override
@@ -156,6 +200,7 @@ public class ThemeActivity extends BaseActivity implements DialogListener{
     public void onDismiss() {
         //ToastUtils.toastShort(ThemeActivity.this,"onDismiss");
     }
+
 
     class ThemeData{
         String color;
@@ -239,5 +284,137 @@ public class ThemeActivity extends BaseActivity implements DialogListener{
             private ImageView selectedItem;
             private ImageView lock;
         }
+    }
+
+    //===========多盟广告实现监听方法实现=======================
+    //如果开启了权限检查，需要重写次方法，并调用多盟视频sdk相应方法
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        IndependentVideoManager.newInstance().onRequestPermissionsResult(requestCode,permissions,grantResults);
+    }
+
+    @Override
+    public void videoDidStartLoad() {
+        //进入播放界面 - 视频开始加载
+        LogUtils.d(">>>>>", "demo videoDidStartLoad");
+    }
+
+    @Override
+    public void videoDidFinishLoad(boolean b) {
+        //进入播放界面 - 视频加载完成
+        LogUtils.e(">>>>>", "demo videoDidFinishLoad");
+    }
+
+    @Override
+    public void videoDidLoadError(String error) {
+        //进入播放界面 - 视频加载失败
+        LogUtils.d(TAG, "demo videoDidLoadError "+error);
+        show_error();
+    }
+
+    @Override
+    public void videoDidClosed() {
+        //退出整个播放界面，返回本应用
+        LogUtils.d(TAG, "demo videoDidClosed");
+    }
+
+    @Override
+    public void videoCompletePlay() {
+        //进入播放界面 - 视频播放完成，或手动关闭（视为用户完成了任务，可以获取奖励）
+        LogUtils.d(TAG, "demo videoCompletePlay");
+        //在此可给用户奖励
+        Toast.makeText(this, "恭喜你完成任务", Toast.LENGTH_SHORT).show();
+        if(!mThemeUnLock.contains(String.valueOf(mUserClickUnlockThemeIndex))){
+            mThemeUnLock.add(String.valueOf(mUserClickUnlockThemeIndex));
+            StringBuilder sb = new StringBuilder();
+            for(int i =0;i< mThemeUnLock.size();i++){
+                sb.append(mThemeUnLock.get(i)+",");
+            }
+            sb.deleteCharAt(sb.length()-1);
+            PreferenceUtils.setThemeUnlock(sb.toString());
+            refreshList();
+        }
+    }
+
+    @Override
+    public void videoPlayError(String s) {
+        //进入播放界面 - 播放过程中出错
+        LogUtils.d(TAG, "demo videoPlayError");
+    }
+
+    @Override
+    public void videoWillPresent() {
+        //进入播放界面 - 视频开始播放
+        LogUtils.d(TAG, "demo videoWillPresent");
+    }
+
+    @Override
+    public void videoVailable(IndependentVideoAvailableState independentVideoAvailableState) {
+        switch (independentVideoAvailableState) {
+            case VideoStateDownloading:
+                LogUtils.d(TAG, "demo VideoStateDownloading");
+                show_caheing();
+                break;
+            case VideoStateFinishedCache:
+                LogUtils.d(TAG, "demo VideoStateFinishedCache");
+                show_has_cache();
+                break;
+            case VideoStateNoExist:
+                LogUtils.d(TAG, "demo VideoStateNoExist");
+                show_no_cache();
+                break;
+        }
+    }
+
+    /**
+     * 直接播放视频
+     *
+     */
+    public void play_video() {
+        //直接播放视频
+        IndependentVideoManager.newInstance().presentIndependentVideo(this);
+    }
+
+    /**
+     * 检查可用缓存
+     *
+     * @param view
+     */
+    public void check(View view) {
+        IndependentVideoManager.newInstance().checkVideoAvailable(this);
+    }
+
+    /**
+     * 播放可用缓存
+     *
+     * @param view
+     */
+    public void play_cache(View view) {
+        IndependentVideoManager.newInstance().presentIndependentVideo(this);
+    }
+
+    public void show_caheing() {
+        LogUtils.d(TAG,"缓存中");
+    }
+
+    public void show_error() {
+        LogUtils.d(TAG,"错误");
+    }
+
+    public void show_no_cache() {
+        LogUtils.d(TAG,"无缓存");
+    }
+
+    public void show_has_cache() {
+        LogUtils.d(TAG,"有缓存");
+    }
+
+    @Override
+    protected void onDestroy() {
+        //移除监听
+        IndependentVideoManager.newInstance().removeIndependentVideoListener(this);
+        IndependentVideoManager.newInstance().exit(this);
+        super.onDestroy();
     }
 }

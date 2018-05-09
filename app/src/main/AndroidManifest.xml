@@ -5,6 +5,16 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!--多盟权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -19,15 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PermissionActivity">
-
-        </activity>
-        <activity android:name=".ThemeActivity">
-
-        </activity>
-        <activity android:name=".BaseActivity">
-
-        </activity>
+        <activity android:name=".PermissionActivity"></activity>
+        <activity android:name=".ThemeActivity"></activity>
+        <activity android:name=".BaseActivity"></activity>
 
         <service android:name=".server.EdgeTouchService"></service>
 
@@ -35,16 +39,24 @@
             android:name=".server.EdgeAccessibilitySever"
             android:label="@string/accessibilityservice_title"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-
-
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
-
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_info" />
         </service>
+
+        <!--多盟组件-->
+        <activity
+            android:name="com.pad.android_independent_video_sdk.view.DvxVideoActivity"
+            android:configChanges="orientation|keyboard|screenSize|screenLayout"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <service android:name="com.pad.android_independent_video_sdk.IndependentService" />
+        <!--demo:96ZJ07DAzfhNjwTPag -->
+        <meta-data
+            android:name="PUBLISH_ID"
+            android:value="96ZJ07DAzfhNjwTPag" />
     </application>
 
 </manifest>

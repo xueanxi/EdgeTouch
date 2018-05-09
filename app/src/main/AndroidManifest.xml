@@ -25,6 +25,9 @@
         <activity android:name=".ThemeActivity">
 
         </activity>
+        <activity android:name=".BaseActivity">
+
+        </activity>
 
         <service android:name=".server.EdgeTouchService"></service>
 

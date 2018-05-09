@@ -24,4 +24,5 @@
     <!--基础颜色-->
     <color name="white">#ffffff</color>
     <color name="alpha">#00ffffff</color>
+    <color name="black">#000000</color>
 </resources>

@@ -18,12 +18,13 @@ import java.util.ArrayList;
 
 import eagetouch.anxi.com.eagetouch.server.EdgeTouchService;
 import eagetouch.anxi.com.eagetouch.utils.PreferenceUtils;
+import eagetouch.anxi.com.eagetouch.utils.ToastUtils;
 
 /**
  * Created by user on 5/9/18.
  */
 
-public class ThemeActivity extends AppCompatActivity {
+public class ThemeActivity extends BaseActivity implements DialogListener{
     private final String TAG = "=ThemeActivity";
 
     ListView mLvTheme;
@@ -32,8 +33,11 @@ public class ThemeActivity extends AppCompatActivity {
 
     private String[] mThemeColors;
     private String[] mThemeTitles;
+    private ArrayList<String> mThemeUnLock;
     private int mSelectcolorIndex;
     ArrayList<ThemeData> mDataList;
+    String mStrThemeUnLock;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,15 +52,25 @@ public class ThemeActivity extends AppCompatActivity {
         mThemeColors = this.getResources().getStringArray(R.array.theme_colors);
         mThemeTitles = this.getResources().getStringArray(R.array.theme_colors_title);
         mSelectcolorIndex = PreferenceUtils.getThemeColor(0);
+        mStrThemeUnLock = PreferenceUtils.getThemeUnlock("");
+        if(mStrThemeUnLock == null || mStrThemeUnLock.equals("")){
+            mStrThemeUnLock = "0,1,2";
+            PreferenceUtils.setThemeUnlock(mStrThemeUnLock);
+        }
+        parseThemeUnLock();
 
         mDataList = new ArrayList<ThemeData>();
         ThemeData data = null;
         for(int i = 0;i<mThemeColors.length;i++){
+            boolean isSelect = false;
+            boolean isUnLock = false;
             if(i == mSelectcolorIndex){
-                data = new ThemeData(mThemeColors[i],mThemeTitles[i],true);
-            }else{
-                data = new ThemeData(mThemeColors[i],mThemeTitles[i],false);
+                isSelect = true;
             }
+            if(mThemeUnLock.contains(String.valueOf(i))){
+                isUnLock = true;
+            }
+            data = new ThemeData(mThemeColors[i],mThemeTitles[i],isSelect,isUnLock);
             mDataList.add(data);
         }
 
@@ -65,30 +79,95 @@ public class ThemeActivity extends AppCompatActivity {
         mLvTheme.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                for(int i =0;i<mDataList.size();i++){
-                    mDataList.get(i).isSelect = false;
+                if(mDataList.get(position).isUnLock){
+                    // 处理用户点击了已经解锁的主题颜色
+                    for(int i =0;i<mDataList.size();i++){
+                        mDataList.get(i).isSelect = false;
+                    }
+                    mDataList.get(position).isSelect = true;
+                    mAdapter.notifyDataSetChanged();
+                    PreferenceUtils.setThemeColor(position);
+                    Intent intent = new Intent();
+                    intent.setPackage("eagetouch.anxi.com.eagetouch");
+                    intent.setClass(ThemeActivity.this,EdgeTouchService.class);
+                    intent.setAction(EdgeTouchService.ACTION_RESET_THEME);
+                    startService(intent);
+
+
+                }else{
+                    doForXiaobao(position);
+                    // 处理用户点击了已经没有解锁的主题颜色
+                    showDialog(getString(R.string.dialog_theme_ad_title),
+                            getString(R.string.dialog_theme_ad_content),
+                            getString(R.string.dialog_theme_ad_positive),
+                            getString(R.string.dialog_theme_ad_negative),
+                            ThemeActivity.this);
+
                 }
-                mDataList.get(position).isSelect = true;
-                mAdapter.notifyDataSetChanged();
-                PreferenceUtils.setThemeColor(position);
-                Intent intent = new Intent();
-                intent.setPackage("eagetouch.anxi.com.eagetouch");
-                intent.setClass(ThemeActivity.this,EdgeTouchService.class);
-                intent.setAction(EdgeTouchService.ACTION_RESET_THEME);
-                startService(intent);
             }
         });
+    }
+
+    private void doForXiaobao(int position) {
+        if(position == mDataList.size()-1){
+            clickTime++;
+            if(clickTime>=10){
+                StringBuilder sb = new StringBuilder();
+                for(int i =0;i< mDataList.size();i++){
+                    sb.append(i+",");
+                }
+                sb.deleteCharAt(sb.length()-1);
+                PreferenceUtils.setThemeUnlock(sb.toString());
+                ToastUtils.toastShort(ThemeActivity.this,"unlock all theme success!");
+            }
+        }else{
+            clickTime = 0;
+        }
+    }
+
+    int clickTime = 0;
+
+    /**
+     * 从一条"0,3,5,6" 这样的字符串中解析出解锁的主题
+     *
+     * 默认前三个主题是解锁的
+     */
+    private void parseThemeUnLock() {
+        String[] results = mStrThemeUnLock.split(",");
+        if(results != null && results.length>0){
+            mThemeUnLock = new ArrayList<String>();
+            for(int i =0;i<results.length;i++){
+                mThemeUnLock.add(results[i]);
+            }
+        }
+    }
+
+    @Override
+    public void onPositiveClick() {
+        ToastUtils.toastShort(ThemeActivity.this,"onPositiveClick");
+    }
+
+    @Override
+    public void onNegativeClick() {
+        ToastUtils.toastShort(ThemeActivity.this,"onNegativeClick");
+    }
+
+    @Override
+    public void onDismiss() {
+        //ToastUtils.toastShort(ThemeActivity.this,"onDismiss");
     }
 
     class ThemeData{
         String color;
         String colorTitile;
         boolean isSelect = false;
+        boolean isUnLock = true;
 
-        public ThemeData(String color,String colorTitile,Boolean isSelect){
+        public ThemeData(String color,String colorTitile,boolean isSelect,boolean isUnLock){
             this.color = color;
             this.colorTitile = colorTitile;
             this.isSelect = isSelect;
+            this.isUnLock = isUnLock;
         }
     }
 
@@ -127,6 +206,7 @@ public class ThemeActivity extends AppCompatActivity {
                 itemHolder.imgItem = (ImageView) view.findViewById(R.id.theme_color_icon);
                 itemHolder.tvItem = (TextView) view.findViewById(R.id.theme_item_title);
                 itemHolder.selectedItem = (ImageView) view.findViewById(R.id.theme_select_icon);
+                itemHolder.lock = (ImageView) view.findViewById(R.id.img_item_theme_lock);
                 view.setTag(itemHolder);
             } else {
                 itemHolder = (ViewHolderItem) view.getTag();
@@ -144,24 +224,12 @@ public class ThemeActivity extends AppCompatActivity {
             } else {
                 itemHolder.selectedItem.setVisibility(View.GONE);
             }
-            /*view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mSelectcolorIndex != id) {
-                        for(int i =0;i<mThemeColors.length;i++){
+            if (data.isUnLock) {
+                itemHolder.lock.setVisibility(View.GONE);
+            } else {
+                itemHolder.lock.setVisibility(View.VISIBLE);
+            }
 
-                        }
-                        mSelectcolorIndex = id;
-                        View last = mSelectedView[mSelectcolorIndex];
-                        if (last != null) {
-                            last.setVisibility(View.GONE);
-                        }
-                        itemHolder.selectedItem.setVisibility(View.VISIBLE);
-                        mSelectcolorIndex = id;
-                        PreferenceUtils.setThemeColor(id);
-                    }
-                }
-            });*/
             return view;
         }
 
@@ -169,6 +237,7 @@ public class ThemeActivity extends AppCompatActivity {
             private TextView tvItem;
             private ImageView imgItem;
             private ImageView selectedItem;
+            private ImageView lock;
         }
     }
 }

@@ -15,6 +15,7 @@ public class PreferenceUtils {
     public static final String KEY_VIBRATE_ON = "KEY_VIBRATE_ON";
     public static final String KEY_TOUCH_AREA_ON_LEFT = "KEY_TOUCH_AREA_ON_LEFT";
     public static final String KEY_THEME_COLOR = "KEY_THEME_COLOR";
+    public static final String KEY_THEME_UNLOCK = "KEY_THEME_UNLOCK";
 
     public static void setBoolean(String key, boolean val) {
         PreferenceManager.getDefaultSharedPreferences(mApp).edit().putBoolean(key, val).apply();
@@ -122,5 +123,19 @@ public class PreferenceUtils {
      */
     public static int getThemeColor(int dafaultValue) {
         return getInt(KEY_THEME_COLOR, dafaultValue);
+    }
+
+    /**
+     * 设置解锁的主题
+     */
+    public static void setThemeUnlock(String values) {
+        setString(KEY_THEME_UNLOCK, values);
+    }
+
+    /**
+     * 获取解锁的主题
+     */
+    public static String getThemeUnlock(String dafaultValue) {
+        return getString(KEY_THEME_UNLOCK, dafaultValue);
     }
 }

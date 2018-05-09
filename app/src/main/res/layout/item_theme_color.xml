@@ -1,62 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/setting_item_height"
+    android:background="@color/setting_item_bg_color"
     android:gravity="start|center_vertical"
     android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/setting_item_height"
-        android:background="@color/setting_item_bg_color">
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/setting_item_padding"
+        android:paddingStart="@dimen/setting_item_padding">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <FrameLayout
+            android:layout_width="@dimen/setting_item_height"
             android:layout_height="@dimen/setting_item_height"
-            android:background="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
+            android:gravity="center">
+
+
+            <ImageView
+                android:id="@+id/theme_color_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/theme_select_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:src="@drawable/seleted"
+                android:tint="@color/black"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:background="@drawable/share_black_outline"
+                android:scaleType="centerCrop" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/img_item_theme_lock"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_lock"/>
+
+        <TextView
+            android:id="@+id/theme_item_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="end|center_vertical"
             android:paddingStart="@dimen/setting_item_padding"
-            android:paddingEnd="@dimen/setting_item_padding">
+            android:textColor="@color/setting_item_title_color"
+            android:textSize="14sp" />
 
-            <RelativeLayout
-                android:layout_width="@dimen/setting_item_height"
-                android:layout_height="@dimen/setting_item_height">
-
-                <ImageView
-                    android:id="@+id/theme_color_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_centerInParent="true"
-                    android:scaleType="centerCrop" />
-
-                <ImageView
-                    android:id="@+id/theme_select_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerInParent="true"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/seleted"
-                    android:tint="@color/white"
-                    android:visibility="gone" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/theme_item_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="end|center_vertical"
-                android:paddingStart="@dimen/setting_item_padding"
-                android:textColor="@color/setting_item_title_color"
-                android:textSize="14sp" />
-
-        </LinearLayout>
     </LinearLayout>
-
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp" />
-
 
 </LinearLayout>

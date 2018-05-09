@@ -25,6 +25,11 @@
     <string name="theme_color_purple">Purple</string>
     <string name="theme_color_alpha">Alpha</string>
 
+    <string name="dialog_theme_ad_title">Notice</string>
+    <string name="dialog_theme_ad_content">Click "PLAY" button it will unlock the select color theme forever by watch a advertisement.</string>
+    <string name="dialog_theme_ad_positive">play</string>
+    <string name="dialog_theme_ad_negative">cancel</string>
+
 
     <string name="accessibilityservice_title">Back Assistant</string>
     <string name="accessibility_service_description">"Please open the switch of \"Back Assistant\" to simulate the back key."</string>

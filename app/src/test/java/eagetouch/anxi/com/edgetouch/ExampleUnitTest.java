@@ -1,4 +1,4 @@
-package eagetouch.anxi.com.eagetouch;
+package eagetouch.anxi.com.edgetouch;
 
 import org.junit.Test;
 

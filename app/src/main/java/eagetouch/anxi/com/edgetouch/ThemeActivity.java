@@ -1,13 +1,13 @@
-package eagetouch.anxi.com.eagetouch;
+package eagetouch.anxi.com.edgetouch;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,12 +21,13 @@ import com.pad.android_independent_video_sdk.IndependentVideoAvailableState;
 import com.pad.android_independent_video_sdk.IndependentVideoListener;
 import com.pad.android_independent_video_sdk.IndependentVideoManager;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
-import eagetouch.anxi.com.eagetouch.server.EdgeTouchService;
-import eagetouch.anxi.com.eagetouch.utils.PreferenceUtils;
-import eagetouch.anxi.com.eagetouch.utils.ToastUtils;
+import eagetouch.anxi.com.edgetouch.interfaces.DialogListener;
+import eagetouch.anxi.com.edgetouch.server.EdgeTouchService;
+import eagetouch.anxi.com.edgetouch.utils.LogUtils;
+import eagetouch.anxi.com.edgetouch.utils.PreferenceUtils;
+import eagetouch.anxi.com.edgetouch.utils.ToastUtils;
 
 /**
  * Created by user on 5/9/18.
@@ -52,15 +53,31 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getString(R.string.theme_color));
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         mLvTheme = (ListView) this.findViewById(R.id.list_theme);
         initList();
 
         initDuoMengAd();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            finish();
+        }
+        return true;
+    }
+
+    /**
+     * 初始化多盟广告
+     */
     private void initDuoMengAd() {
         IndependentVideoManager.newInstance().enableLog(true); //是否开启sdk的log，默认是开启
-        IndependentVideoManager.newInstance().init(this,true);//初始化
+        IndependentVideoManager.newInstance().init(this,false);//初始化
         //IndependentVideoManager.newInstance().updateUserID(this,"abcd");//设置用户唯一标示，不是媒体id，是开发者用户体系中，用户的唯一标示，没有，则可以不设置。
         IndependentVideoManager.newInstance().disableShowAlert(this,false);//是否使用多盟提示框，提示完成任务，默认为true
         IndependentVideoManager.newInstance().addIndependentVideoListener(this);
@@ -107,7 +124,7 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
                     mAdapter.notifyDataSetChanged();
                     PreferenceUtils.setThemeColor(position);
                     Intent intent = new Intent();
-                    intent.setPackage("eagetouch.anxi.com.eagetouch");
+                    intent.setPackage("edgetouch.anxi.com.edgetouch");
                     intent.setClass(ThemeActivity.this,EdgeTouchService.class);
                     intent.setAction(EdgeTouchService.ACTION_RESET_THEME);
                     startService(intent);
@@ -126,6 +143,9 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
         });
     }
 
+    /**
+     * 刷新列表
+     */
     private void refreshList(){
         //mSelectcolorIndex = PreferenceUtils.getThemeColor(0);
         mStrThemeUnLock = PreferenceUtils.getThemeUnlock("");
@@ -353,15 +373,12 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
     public void videoVailable(IndependentVideoAvailableState independentVideoAvailableState) {
         switch (independentVideoAvailableState) {
             case VideoStateDownloading:
-                LogUtils.d(TAG, "demo VideoStateDownloading");
                 show_caheing();
                 break;
             case VideoStateFinishedCache:
-                LogUtils.d(TAG, "demo VideoStateFinishedCache");
                 show_has_cache();
                 break;
             case VideoStateNoExist:
-                LogUtils.d(TAG, "demo VideoStateNoExist");
                 show_no_cache();
                 break;
         }
@@ -379,19 +396,9 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
     /**
      * 检查可用缓存
      *
-     * @param view
      */
-    public void check(View view) {
+    public void check() {
         IndependentVideoManager.newInstance().checkVideoAvailable(this);
-    }
-
-    /**
-     * 播放可用缓存
-     *
-     * @param view
-     */
-    public void play_cache(View view) {
-        IndependentVideoManager.newInstance().presentIndependentVideo(this);
     }
 
     public void show_caheing() {

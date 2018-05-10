@@ -1,9 +1,9 @@
-package eagetouch.anxi.com.eagetouch.utils;
+package eagetouch.anxi.com.edgetouch.utils;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import eagetouch.anxi.com.eagetouch.App;
+import eagetouch.anxi.com.edgetouch.App;
 
 /**
  * Created by user on 17-1-9.

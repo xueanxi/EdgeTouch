@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Back Assistant</string>
+    <string name="app_name">Quick Back</string>
     <string name="function_off">OFF</string>
     <string name="function_on">ON</string>
     <string name="toast_not_permission">Open Function fail,please open the follow two permissions first.</string>
@@ -8,11 +8,12 @@
     <string name="mian_title_switch">Function</string>
     <string name="mian_title_permission_request">Permission Request</string>
     <string name="main_title_preference">Preferences</string>
-    <string name="open_accessbility_server">"Go to open \"Back Assistant\" accessbility"</string>
+    <string name="open_accessbility_server">"Go to open \"Quick Back\" accessbility"</string>
     <string name="get_overly_permission">Permit drawing over other apps</string>
     <string name="vibrate">Vibrate</string>
-    <string name="touch_area_left">Current touch area on left</string>
-    <string name="touch_area_right">Current touch area on right</string>
+    <string name="main_touch_area">Touch area</string>
+    <string name="touch_area_left">Edge of left</string>
+    <string name="touch_area_right">Edge of right</string>
     <string name="theme_color">Theme colors</string>
 
     <string name="theme_color_orange">Orange</string>
@@ -25,12 +26,18 @@
     <string name="theme_color_purple">Purple</string>
     <string name="theme_color_alpha">Alpha</string>
 
+    <string name="accessibilityservice_title">@string/app_name</string>
+    <string name="accessibility_service_description">"Please open the switch of \"Quick Back\" to simulate the back key."</string>
+
     <string name="dialog_theme_ad_title">Notice</string>
     <string name="dialog_theme_ad_content">Click "PLAY" button it will unlock the select color theme forever by watch a advertisement.</string>
     <string name="dialog_theme_ad_positive">play</string>
     <string name="dialog_theme_ad_negative">cancel</string>
+    <string name="ok">OK</string>
 
-
-    <string name="accessibilityservice_title">Back Assistant</string>
-    <string name="accessibility_service_description">"Please open the switch of \"Back Assistant\" to simulate the back key."</string>
+    <string name="toast_get_permission_fail">Get Permission fail !</string>
+    <string name="dialog_overlay_content">Please Permit drawing over other apps.</string>
+    <string name="dialog_overlay_goto">Go to</string>
+    <string name="main_title_help">Helper</string>
+    <string name="main_help_summery">"After the function switch is turned on, a quick return can be achieved by sliding quickly from the left edge of the screen to a small distance in the middle of the screen."</string>
 </resources>

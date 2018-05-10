@@ -43,7 +43,7 @@
                 android:layout_height="25dp"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:background="@drawable/share_black_outline"
+                android:background="@drawable/sp_black_outline"
                 android:scaleType="centerCrop" />
         </FrameLayout>
 

@@ -1,4 +1,4 @@
-package eagetouch.anxi.com.eagetouch;
+package eagetouch.anxi.com.edgetouch;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -7,6 +7,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+
+import eagetouch.anxi.com.edgetouch.interfaces.DialogListener;
 
 /**
  */
@@ -20,9 +22,13 @@ public class MyDialogFragment extends DialogFragment {
     public MyDialogFragment() {
     }
 
-    public static MyDialogFragment newInstance(DialogListener listener) {
+    public static MyDialogFragment newInstance(String title,String message,String positiveText) {
         MyDialogFragment dialog = new MyDialogFragment();
-        dialog.mListener = listener;
+        dialog.mMessage = message;
+        dialog.mTitle = title;
+        dialog.mpositiveText = positiveText;
+        dialog.mNegativeText = "";
+        dialog.mListener = null;
         return dialog;
     }
 

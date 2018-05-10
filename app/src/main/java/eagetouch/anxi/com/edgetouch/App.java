@@ -1,11 +1,6 @@
-package eagetouch.anxi.com.eagetouch;
+package eagetouch.anxi.com.edgetouch;
 
 import android.app.Application;
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
-import android.os.SystemClock;
-import android.support.annotation.Nullable;
 
 
 /**

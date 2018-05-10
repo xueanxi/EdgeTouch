@@ -1,14 +1,12 @@
-package eagetouch.anxi.com.eagetouch.server;
+package eagetouch.anxi.com.edgetouch.server;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 
-import eagetouch.anxi.com.eagetouch.EdgeTouchView;
-import eagetouch.anxi.com.eagetouch.LogUtils;
+import eagetouch.anxi.com.edgetouch.EdgeTouchView;
+import eagetouch.anxi.com.edgetouch.utils.LogUtils;
 
 
 /**

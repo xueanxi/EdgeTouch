@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">返回助手</string>
+    <string name="app_name">快速返回</string>
     <string name="function_off">关闭</string>
     <string name="function_on">打开</string>
     <string name="toast_not_permission">启动功能失败,请先开启下面两个权限.</string>
@@ -8,11 +8,12 @@
     <string name="mian_title_switch">功能</string>
     <string name="mian_title_permission_request">权限要求</string>
     <string name="main_title_preference">个性化</string>
-    <string name="open_accessbility_server">"前往开启\"返回助手\"辅助服务"</string>
+    <string name="open_accessbility_server">"前往开启\"快速返回\"辅助服务"</string>
     <string name="get_overly_permission">开启显示悬浮窗的权限</string>
     <string name="vibrate">震动</string>
-    <string name="touch_area_left">当前触摸区域在左边</string>
-    <string name="touch_area_right">当前触摸区域在右边</string>
+    <string name="main_touch_area">触摸区域</string>
+    <string name="touch_area_left">左侧边缘</string>
+    <string name="touch_area_right">右侧边缘</string>
     <string name="theme_color">主题颜色</string>
 
     <string name="theme_color_orange">橙色</string>
@@ -25,7 +26,16 @@
     <string name="theme_color_purple">紫色</string>
     <string name="theme_color_alpha">透明</string>
 
+    <string name="accessibilityservice_title">@string/app_name</string>
+    <string name="accessibility_service_description">"请打开\"快速返回\"的开关，用于实现返回功能"</string>
 
-    <string name="accessibilityservice_title">返回助手</string>
-    <string name="accessibility_service_description">"请打开\"返回助手\"的开关，用于实现返回键的功能"</string>
+    <string name="dialog_theme_ad_title">主题</string>
+    <string name="dialog_theme_ad_content">观看一次广告之后将永久解锁这种颜色，点击\"播放\"按钮之后开始播放。</string>
+    <string name="dialog_theme_ad_positive">播放</string>
+    <string name="dialog_theme_ad_negative">取消</string>
+    <string name="toast_get_permission_fail">获取权限失败</string>
+    <string name="dialog_overlay_content">请开启显示悬浮窗的权限</string>
+    <string name="dialog_overlay_goto">前往</string>
+    <string name="main_title_help">帮助</string>
+    <string name="main_help_summery">"打开功能开关之后，从屏幕左侧边缘快速滑向屏幕中间一小段距离，就可以实现快速返回。"</string>
 </resources>

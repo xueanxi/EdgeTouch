@@ -1,4 +1,4 @@
-package eagetouch.anxi.com.eagetouch;
+package eagetouch.anxi.com.edgetouch;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("eagetouch.anxi.com.eagetouch", appContext.getPackageName());
+        assertEquals("edgetouch.anxi.com.edgetouch", appContext.getPackageName());
     }
 }

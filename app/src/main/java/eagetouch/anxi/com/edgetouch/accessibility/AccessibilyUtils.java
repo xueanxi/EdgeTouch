@@ -1,11 +1,11 @@
-package eagetouch.anxi.com.eagetouch.accessibility;
+package eagetouch.anxi.com.edgetouch.accessibility;
 
 import android.content.Context;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
-import eagetouch.anxi.com.eagetouch.server.EdgeAccessibilitySever;
+import eagetouch.anxi.com.edgetouch.server.EdgeAccessibilitySever;
 
 /**
  * Created by anxi.xue on 2018/5/8.

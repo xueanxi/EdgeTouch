@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="eagetouch.anxi.com.eagetouch">
+    package="eagetouch.anxi.com.edgetouch">
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -16,27 +16,29 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".App"
+        android:name="eagetouch.anxi.com.edgetouch.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="eagetouch.anxi.com.edgetouch.MainActivity">
+
+        </activity>
+        <activity android:name="eagetouch.anxi.com.edgetouch.PermissionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PermissionActivity"></activity>
-        <activity android:name=".ThemeActivity"></activity>
-        <activity android:name=".BaseActivity"></activity>
+        <activity android:name="eagetouch.anxi.com.edgetouch.ThemeActivity"></activity>
+        <activity android:name="eagetouch.anxi.com.edgetouch.BaseActivity"></activity>
 
-        <service android:name=".server.EdgeTouchService"></service>
+        <service android:name="eagetouch.anxi.com.edgetouch.server.EdgeTouchService"></service>
 
         <service
-            android:name=".server.EdgeAccessibilitySever"
+            android:name="eagetouch.anxi.com.edgetouch.server.EdgeAccessibilitySever"
             android:label="@string/accessibilityservice_title"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>

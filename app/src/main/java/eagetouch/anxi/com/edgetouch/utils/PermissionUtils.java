@@ -1,4 +1,4 @@
-package eagetouch.anxi.com.eagetouch.utils;
+package eagetouch.anxi.com.edgetouch.utils;
 
 import android.content.Context;
 import android.os.Build;

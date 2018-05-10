@@ -1,4 +1,4 @@
-package eagetouch.anxi.com.eagetouch;
+package eagetouch.anxi.com.edgetouch;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -15,8 +15,9 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.CompoundButton;
 
-import eagetouch.anxi.com.eagetouch.server.EdgeAccessibilitySever;
-import eagetouch.anxi.com.eagetouch.utils.PreferenceUtils;
+import eagetouch.anxi.com.edgetouch.server.EdgeAccessibilitySever;
+import eagetouch.anxi.com.edgetouch.utils.LogUtils;
+import eagetouch.anxi.com.edgetouch.utils.PreferenceUtils;
 
 /**
  * Created by user on 11/29/17.
@@ -58,7 +59,7 @@ public class EdgeTouchView implements View.OnTouchListener, CompoundButton.OnChe
         mScreenWidth = getScreenWidth(mContext);
         mScreenHeight = getScreenHeight(mContext);
         mViewWidth = (int) mContext.getResources().getDimension(R.dimen.float_view_width);
-        mViewHeight = mScreenHeight;
+        mViewHeight = mScreenHeight*2/3;
         initFloatView();
         mVibrator = (Vibrator) mContext.getSystemService(Service.VIBRATOR_SERVICE);
     }
@@ -95,9 +96,9 @@ public class EdgeTouchView implements View.OnTouchListener, CompoundButton.OnChe
         mParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         //调整悬浮窗显示的停靠位置为左侧置顶
         if (PreferenceUtils.isTouchAreaOnLeft()) {
-            mParams.gravity = Gravity.LEFT | Gravity.TOP;
+            mParams.gravity = Gravity.LEFT | Gravity.BOTTOM;
         } else {
-            mParams.gravity = Gravity.RIGHT | Gravity.TOP;
+            mParams.gravity = Gravity.RIGHT | Gravity.BOTTOM;
         }
         mParams.width = mViewWidth;
         mParams.height = mViewHeight;
@@ -116,61 +117,61 @@ public class EdgeTouchView implements View.OnTouchListener, CompoundButton.OnChe
         switch (mThemeIndex) {
             case 0:
                 if (isLeft) {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_orange_left);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_orange_left);
                 } else {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_orange_right);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_orange_right);
                 }
                 break;
             case 1:
                 if (isLeft) {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_red_left);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_red_left);
                 } else {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_red_right);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_red_right);
                 }
                 break;
             case 2:
                 if (isLeft) {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_green_left);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_green_left);
                 } else {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_green_right);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_green_right);
                 }
                 break;
             case 3:
                 if (isLeft) {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_blue_left);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_blue_left);
                 } else {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_blue_right);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_blue_right);
                 }
                 break;
             case 4:
                 if (isLeft) {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_yellow_left);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_yellow_left);
                 } else {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_yellow_right);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_yellow_right);
                 }
                 break;
             case 5:
                 if (isLeft) {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_pink_left);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_pink_left);
                 } else {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_pink_right);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_pink_right);
                 }
                 break;
             case 6:
                 if (isLeft) {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_purple_left);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_purple_left);
                 } else {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_purple_right);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_purple_right);
                 }
                 break;
             case 7:
-                mFloatView.setBackgroundResource(R.drawable.share_gradient_alpha);
+                mFloatView.setBackgroundResource(R.drawable.sp_gradient_alpha);
                 break;
             default:
                 if (isLeft) {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_red_left);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_red_left);
                 } else {
-                    mFloatView.setBackgroundResource(R.drawable.share_gradient_red_right);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_red_right);
                 }
                 break;
         }

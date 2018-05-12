@@ -194,7 +194,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
     }
 
     private void onFunctionOn(){
-        mTvFunction.setText(R.string.function_on);
+        mTvFunction.setText(R.string.on);
         mSwFunction.setChecked(true);
 
         if(PreferenceUtils.isVibrateOn()){
@@ -221,7 +221,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
     }
 
     private void onFunctionOff(){
-        mTvFunction.setText(R.string.function_off);
+        mTvFunction.setText(R.string.off);
         mSwFunction.setChecked(false);
         PreferenceUtils.setFuntionOn(false);
         mLyPreferenceContains.setVisibility(View.GONE);
@@ -249,7 +249,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
     }
 
     private void showHelper() {
-        showDialog(getString(R.string.main_title_help),
+        showDialog(getString(R.string.helper),
                 getString(R.string.main_help_summery),
                 getString(R.string.ok));
     }

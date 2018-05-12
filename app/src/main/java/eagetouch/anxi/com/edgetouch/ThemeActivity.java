@@ -132,10 +132,10 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
                     //doForXiaobao(position);
                     // 处理用户点击了已经没有解锁的主题颜色
                     mUserClickUnlockThemeIndex = position;
-                    showDialog(getString(R.string.dialog_theme_ad_title),
+                    showDialog(getString(R.string.notice),
                             getString(R.string.dialog_theme_ad_content),
-                            getString(R.string.dialog_theme_ad_positive),
-                            getString(R.string.dialog_theme_ad_negative),
+                            getString(R.string.play),
+                            getString(R.string.cancel),
                             ThemeActivity.this);
 
                 }

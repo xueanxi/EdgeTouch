@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">快速返回</string>
-    <string name="function_off">关闭</string>
-    <string name="function_on">打开</string>
+    <string name="app_name">边缘返回</string>
+    <string name="off">关闭</string>
+    <string name="on">打开</string>
     <string name="toast_not_permission">启动功能失败,请先开启下面两个权限.</string>
     <string name="toast_funtion_on">启动成功,开始愉快玩耍吧!</string>
     <string name="toast_funtion_off">功能已关闭</string>
     <string name="mian_title_switch">功能</string>
     <string name="mian_title_permission_request">权限要求</string>
     <string name="main_title_preference">个性化</string>
-    <string name="open_accessbility_server">"前往开启\"快速返回\"辅助服务"</string>
+    <string name="open_accessbility_server">"前往开启\"边缘返回\"辅助服务"</string>
     <string name="get_overly_permission">开启显示悬浮窗的权限</string>
     <string name="vibrate">震动</string>
     <string name="main_touch_area">触摸区域</string>
@@ -26,16 +26,17 @@
     <string name="theme_color_purple">紫色</string>
     <string name="theme_color_alpha">透明</string>
 
-    <string name="accessibilityservice_title">@string/app_name</string>
-    <string name="accessibility_service_description">"请打开\"快速返回\"的开关，用于实现返回功能"</string>
+    <string name="accessibilityservice_title">*** 边缘返回 ***</string>
+    <string name="accessibility_service_description">"请打开\"边缘返回\"的开关，用于实现返回功能"</string>
 
-    <string name="dialog_theme_ad_title">主题</string>
+    <string name="notice">主题</string>
     <string name="dialog_theme_ad_content">观看一次广告之后将永久解锁这种颜色，点击\"播放\"按钮之后开始播放。</string>
-    <string name="dialog_theme_ad_positive">播放</string>
-    <string name="dialog_theme_ad_negative">取消</string>
+    <string name="play">播放</string>
+    <string name="cancel">取消</string>
     <string name="toast_get_permission_fail">获取权限失败</string>
     <string name="dialog_overlay_content">请开启显示悬浮窗的权限</string>
-    <string name="dialog_overlay_goto">前往</string>
-    <string name="main_title_help">帮助</string>
-    <string name="main_help_summery">"打开功能开关之后，从屏幕左侧边缘快速滑向屏幕中间一小段距离，就可以实现快速返回。"</string>
+    <string name="go_to">前往</string>
+    <string name="helper">帮助</string>
+    <string name="main_help_summery">"打开功能开关之后，从屏幕左侧边缘快速滑向屏幕中间一小段距离，就可以实现边缘返回。"</string>
+    <string name="ok">确定</string>
 </resources>

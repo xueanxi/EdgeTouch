@@ -17,6 +17,56 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    /*添加渠道*/
+    productFlavors {
+        ali {}
+        wandoujia {}
+        qihu360 {}
+        chuizi {}
+        sougou {}
+        tencent {}
+        huawei {}
+
+        uc {} // 审核中
+        flyme {}//审核中
+        xiaomi {}//审核中
+        baidu {}//审核中
+    }
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
+
+    //修改生成的apk名字
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def oldFile = output.outputFile
+            def newName = '';
+            if (variant.buildType.name.equals('release')) {
+                def releaseApkName = getProductName() + "-v${defaultConfig.versionName}-" + variant.productFlavors[0].name + '-signed.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+            }
+            if (variant.buildType.name.equals('beta')) {
+                newName = getProductName() + "-v${defaultConfig.versionName}-" + variant.productFlavors[0].name + "-build" + getDate() + ".apk"
+                output.outputFile = new File(oldFile.parent, newName)
+            }
+            if (variant.buildType.name.equals('debug')) {
+                newName = getProductName() + "-v${defaultConfig.versionName}-" + variant.productFlavors[0].name + "-debug" + getDate() + ".apk"
+                output.outputFile = new File(oldFile.parent, newName)
+            }
+        }
+    }
+}
+
+//获取产品名
+def getProductName() {
+    return "EdgeBack"
+}
+//获取时间戳
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmm')
+    return formattedDate
 }
 
 dependencies {

@@ -35,6 +35,7 @@
             </intent-filter>
         </activity>
         <activity android:name="eagetouch.anxi.com.edgetouch.ThemeActivity"></activity>
+        <activity android:name="eagetouch.anxi.com.edgetouch.ThemeActivity2"></activity>
         <activity android:name="eagetouch.anxi.com.edgetouch.BaseActivity"></activity>
 
         <service
@@ -64,6 +65,11 @@
         <meta-data
             android:name="PUBLISH_ID"
             android:value="96ZJ07DAzfhNjwTPag" />
+
+        <!--添加渠道-->
+        <meta-data
+            android:name="CHANNEL_NAME"
+            android:value="${CHANNEL_VALUE}" />
     </application>
 
 </manifest>

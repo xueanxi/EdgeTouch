@@ -246,7 +246,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
         int id = v.getId();
         Intent intent = null;
         if(id == R.id.ly_main_theme || id == R.id.img_main_theme){
-            intent = new Intent(this,ThemeActivity.class);
+            intent = new Intent(this,ThemeActivity2.class);
             startActivity(intent);
         }else if(id == R.id.ly_main_touch_area){
             showSelectAreaMenu();

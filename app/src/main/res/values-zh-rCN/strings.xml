@@ -25,9 +25,12 @@
     <string name="theme_color_pink">粉色</string>
     <string name="theme_color_purple">紫色</string>
     <string name="theme_color_alpha">透明</string>
+    <string name="theme_color_brown">棕色</string>
+    <string name="theme_color_blue_dark">深蓝</string>
+    <string name="theme_color_black">黑色</string>
 
-    <string name="accessibilityservice_title">*** 边缘返回 ***</string>
-    <string name="accessibility_service_description">"请打开\"边缘返回\"的开关，用于实现返回功能"</string>
+    <string name="accessibilityservice_title">*** 边缘返回 请点击开启 ***</string>
+    <string name="accessibility_service_description">"请打开服务，用于实现返回功能，打开后返回应用界面即可开启功能"</string>
 
     <string name="notice">主题</string>
     <string name="dialog_theme_ad_content">观看一次广告之后将永久解锁这种颜色，点击\"播放\"按钮之后开始播放。</string>
@@ -37,6 +40,7 @@
     <string name="dialog_overlay_content">请开启显示悬浮窗的权限</string>
     <string name="go_to">前往</string>
     <string name="helper">帮助</string>
-    <string name="main_help_summery">"打开功能开关之后，从屏幕左侧边缘快速滑向屏幕中间一小段距离，就可以实现边缘返回。"</string>
+    <string name="main_help_summery">"1.打开功能开关之后，从屏幕左侧边缘快速滑向屏幕中间一小段距离，就可以返回。\n2.请把应用加入清理的白名单，避免被系统关闭。"</string>
     <string name="ok">确定</string>
+    <string name="notification_accessibility_off">"边缘返回的服务被终止了，请点击这里去开启。"</string>
 </resources>

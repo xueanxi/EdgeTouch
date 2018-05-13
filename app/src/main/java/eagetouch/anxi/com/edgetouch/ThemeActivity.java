@@ -129,7 +129,7 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
                     intent.setAction(EdgeTouchService.ACTION_RESET_THEME);
                     startService(intent);
                 }else{
-                    //doForXiaobao(position);
+                    doForXiaobao(position);
                     // 处理用户点击了已经没有解锁的主题颜色
                     mUserClickUnlockThemeIndex = position;
                     showDialog(getString(R.string.notice),
@@ -137,7 +137,6 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
                             getString(R.string.play),
                             getString(R.string.cancel),
                             ThemeActivity.this);
-
                 }
             }
         });
@@ -175,7 +174,7 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
     private void doForXiaobao(int position) {
         if(position == mDataList.size()-1){
             clickTime++;
-            if(clickTime>=10){
+            if(clickTime>=5){
                 StringBuilder sb = new StringBuilder();
                 for(int i =0;i< mDataList.size();i++){
                     sb.append(i+",");
@@ -183,6 +182,7 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
                 sb.deleteCharAt(sb.length()-1);
                 PreferenceUtils.setThemeUnlock(sb.toString());
                 ToastUtils.toastShort(ThemeActivity.this,"unlock all theme success!");
+                mAdapter.notifyDataSetChanged();
             }
         }else{
             clickTime = 0;
@@ -213,7 +213,7 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
 
     @Override
     public void onNegativeClick() {
-        ToastUtils.toastShort(ThemeActivity.this,"onNegativeClick");
+        //ToastUtils.toastShort(ThemeActivity.this,"onNegativeClick");
     }
 
     @Override
@@ -317,13 +317,13 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
     @Override
     public void videoDidStartLoad() {
         //进入播放界面 - 视频开始加载
-        LogUtils.d(">>>>>", "demo videoDidStartLoad");
+        LogUtils.d(TAG, "demo videoDidStartLoad");
     }
 
     @Override
     public void videoDidFinishLoad(boolean b) {
         //进入播放界面 - 视频加载完成
-        LogUtils.e(">>>>>", "demo videoDidFinishLoad");
+        LogUtils.e(TAG, "demo videoDidFinishLoad");
     }
 
     @Override
@@ -402,19 +402,19 @@ public class ThemeActivity extends BaseActivity implements DialogListener,Indepe
     }
 
     public void show_caheing() {
-        LogUtils.d(TAG,"缓存中");
+        LogUtils.d(TAG,"caheing");
     }
 
     public void show_error() {
-        LogUtils.d(TAG,"错误");
+        LogUtils.d(TAG,"play error");
     }
 
     public void show_no_cache() {
-        LogUtils.d(TAG,"无缓存");
+        LogUtils.d(TAG,"no cache");
     }
 
     public void show_has_cache() {
-        LogUtils.d(TAG,"有缓存");
+        LogUtils.d(TAG,"have cache");
     }
 
     @Override

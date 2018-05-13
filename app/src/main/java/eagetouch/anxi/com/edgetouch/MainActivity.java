@@ -20,6 +20,7 @@ import eagetouch.anxi.com.edgetouch.accessibility.AccessibilyUtils;
 import eagetouch.anxi.com.edgetouch.interfaces.DialogListener;
 import eagetouch.anxi.com.edgetouch.server.EdgeTouchService;
 import eagetouch.anxi.com.edgetouch.utils.LogUtils;
+import eagetouch.anxi.com.edgetouch.utils.NotificationUtils;
 import eagetouch.anxi.com.edgetouch.utils.PermissionUtils;
 import eagetouch.anxi.com.edgetouch.utils.PreferenceUtils;
 import eagetouch.anxi.com.edgetouch.utils.ToastUtils;
@@ -49,8 +50,13 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initData();
         initView();
+    }
+
+    private void cancerNotification() {
+        NotificationUtils.cancerAccessibilityOffNotification();
     }
 
     private void initData() {
@@ -87,6 +93,7 @@ public class MainActivity extends BaseActivity implements CompoundButton.OnCheck
     @Override
     protected void onResume() {
         super.onResume();
+        cancerNotification();
         // 检测是否有overlay权限
         if(PermissionUtils.canDrawOverlays(this.getApplicationContext())){
             mSwPermissionOverlay.setChecked(true);

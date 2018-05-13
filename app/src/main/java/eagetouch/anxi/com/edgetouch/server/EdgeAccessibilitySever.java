@@ -4,6 +4,10 @@ import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
 import android.view.accessibility.AccessibilityEvent;
 
+import eagetouch.anxi.com.edgetouch.utils.LogUtils;
+
+import static eagetouch.anxi.com.edgetouch.server.EdgeTouchService.ACTION_ACCESSIBILITY_OFF;
+
 
 /**
  * Created by user on 17-1-25.
@@ -15,6 +19,7 @@ public class EdgeAccessibilitySever extends AccessibilityService {
     public static final String RUN_RECENT = "run_recent";
     public static final String RUN_BACK = "run_back";
     public static final String RUN_SPLIT_SCREEN = "run_split_screen";
+    private boolean isOff = false;
 
     @Override
     public void onCreate() {
@@ -41,10 +46,24 @@ public class EdgeAccessibilitySever extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
+        LogUtils.e(TAG, "onInterrupt");
+        isOff = true;
+        sendNotification();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        LogUtils.e(TAG, "onDestroy");
+        if (!isOff) {
+            sendNotification();
+        }
+        isOff = false;
+    }
+
+    private void sendNotification() {
+        Intent intent = new Intent(this, EdgeTouchService.class);
+        intent.setAction(ACTION_ACCESSIBILITY_OFF);
+        startService(intent);
     }
 }

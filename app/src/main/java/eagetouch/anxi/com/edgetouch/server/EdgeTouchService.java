@@ -1,12 +1,18 @@
 package eagetouch.anxi.com.edgetouch.server;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import eagetouch.anxi.com.edgetouch.EdgeTouchView;
+import eagetouch.anxi.com.edgetouch.MainActivity;
+import eagetouch.anxi.com.edgetouch.R;
 import eagetouch.anxi.com.edgetouch.utils.LogUtils;
+import eagetouch.anxi.com.edgetouch.utils.NotificationUtils;
 
 
 /**
@@ -14,17 +20,18 @@ import eagetouch.anxi.com.edgetouch.utils.LogUtils;
  */
 
 public class EdgeTouchService extends Service {
-    private static final String TAG = "Ax/EdgeTouchService";
+    private static final String TAG = "=EdgeTouchService";
 
     public static final String ACTION_START_FLOAT_VIEW = "ACTION_START_FLOAT_VIEW";
     public static final String ACTION_STOP_FLOAT_VIEW = "ACTION_STOP_FLOAT_VIEW";
     public static final String ACTION_RESET_THEME = "ACTION_RESET_THEME";
     public static final String ACTION_RESTART_FLOAT_VIEW = "ACTION_RESTART_FLOAT_VIEW";
+    public static final String ACTION_ACCESSIBILITY_OFF = "ACTION_ACCESSIBILITY_OFF";
     private EdgeTouchView mEdgeTouchView;
 
     @Override
     public void onCreate() {
-        LogUtils.d(TAG,"onCreate()");
+        LogUtils.d(TAG,"onCreate(2)");
         super.onCreate();
         getFloatView();
     }
@@ -46,14 +53,17 @@ public class EdgeTouchService extends Service {
                 case ACTION_RESTART_FLOAT_VIEW:
                     restartFloatView();
                     break;
+                case ACTION_ACCESSIBILITY_OFF:
+                    NotificationUtils.sendAccessibilityOffNotification();
+                    break;
             }
         } else if (intent == null) {
             // 服务异常被杀死的情况,intent 为 null
+            LogUtils.d(TAG,"onstartcomment but intent == null");
 
         }
         return START_STICKY;
     }
-
 
     private void stopFloatView() {
         LogUtils.d(TAG,"service stopFloatView()");
@@ -84,5 +94,11 @@ public class EdgeTouchService extends Service {
             mEdgeTouchView = new EdgeTouchView(this);
         }
         return mEdgeTouchView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtils.d(TAG,"onDestory");
     }
 }

@@ -117,61 +117,90 @@ public class EdgeTouchView implements View.OnTouchListener, CompoundButton.OnChe
         switch (mThemeIndex) {
             case 0:
                 if (isLeft) {
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_blue_left);
+                } else {
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_blue_right);
+                }
+                break;
+            case 1:
+                if (isLeft) {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_orange_left);
                 } else {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_orange_right);
                 }
                 break;
-            case 1:
+            case 2:
                 if (isLeft) {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_red_left);
                 } else {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_red_right);
                 }
                 break;
-            case 2:
+            case 3:
+                mFloatView.setBackgroundResource(R.drawable.sp_gradient_alpha);
+                break;
+            case 4:
                 if (isLeft) {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_green_left);
                 } else {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_green_right);
                 }
                 break;
-            case 3:
-                if (isLeft) {
-                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_blue_left);
-                } else {
-                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_blue_right);
-                }
-                break;
-            case 4:
+
+            case 5:
                 if (isLeft) {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_yellow_left);
                 } else {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_yellow_right);
                 }
                 break;
-            case 5:
+            case 6:
                 if (isLeft) {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_pink_left);
                 } else {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_pink_right);
                 }
                 break;
-            case 6:
+            case 7:
                 if (isLeft) {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_purple_left);
                 } else {
                     mFloatView.setBackgroundResource(R.drawable.sp_gradient_purple_right);
                 }
                 break;
-            case 7:
-                mFloatView.setBackgroundResource(R.drawable.sp_gradient_alpha);
+            case 8:
+                if (isLeft) {
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_white_left);
+                } else {
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_white_right);
+                }
+                break;
+            case 9:
+                if (isLeft) {
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_brown_left);
+                } else {
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_brown_right);
+                }
+                break;
+            case 10:
+                if (isLeft) {
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_blue_dark_left);
+                } else {
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_blue_dark_right);
+                }
+                break;
+            case 11:
+                if (isLeft) {
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_black_left);
+                } else {
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_black_right);
+                }
                 break;
             default:
                 if (isLeft) {
-                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_red_left);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_blue_left);
                 } else {
-                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_red_right);
+                    mFloatView.setBackgroundResource(R.drawable.sp_gradient_blue_right);
                 }
                 break;
         }

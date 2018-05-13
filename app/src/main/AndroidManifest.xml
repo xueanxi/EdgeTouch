@@ -22,7 +22,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="eagetouch.anxi.com.edgetouch.MainActivity">
+        <activity
+            android:name="eagetouch.anxi.com.edgetouch.MainActivity"
+            android:excludeFromRecents="true">
 
         </activity>
         <activity android:name="eagetouch.anxi.com.edgetouch.PermissionActivity">
@@ -35,11 +37,14 @@
         <activity android:name="eagetouch.anxi.com.edgetouch.ThemeActivity"></activity>
         <activity android:name="eagetouch.anxi.com.edgetouch.BaseActivity"></activity>
 
-        <service android:name="eagetouch.anxi.com.edgetouch.server.EdgeTouchService"></service>
+        <service
+            android:name="eagetouch.anxi.com.edgetouch.server.EdgeTouchService"
+            android:excludeFromRecents="true"></service>
 
         <service
             android:name="eagetouch.anxi.com.edgetouch.server.EdgeAccessibilitySever"
             android:label="@string/accessibilityservice_title"
+            android:excludeFromRecents="true"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />

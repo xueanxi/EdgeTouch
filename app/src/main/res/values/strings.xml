@@ -31,11 +31,17 @@
     <string name="theme_color_yellow">Yellow</string>
     <string name="theme_color_pink">Pink</string>
     <string name="theme_color_purple">Purple</string>
-    <string name="theme_color_alpha">Alpha</string>
-    <string name="accessibilityservice_title">*** Edge Back ***</string>
-    <string name="accessibility_service_description">"Please open the switch of \"Edge Back\" to simulate the back key."</string>
+    <string name="theme_color_alpha">Lucency</string>
+    <string name="theme_color_brown">Brown</string>
+    <string name="theme_color_blue_dark">Blue dark</string>
+    <string name="theme_color_black">Black</string>
+
+    <string name="accessibilityservice_title">"*** Edge Back ***</string>
+    <string name="accessibility_service_description">"Please open the switch to simulate the back key."</string>
     <string name="dialog_theme_ad_content">Click "PLAY" button it will unlock the select color theme forever by watch a advertisement.</string>
     <string name="toast_get_permission_fail">Get Permission fail !</string>
     <string name="dialog_overlay_content">Please Permit drawing over other apps.</string>
-    <string name="main_help_summery">"After the function switch is turned on, a quick return can be achieved by sliding quickly from the left edge of the screen to a small distance in the middle of the screen."</string>
+    <string name="main_help_summery">"1.After the function switch is turned on, a \"Back action\" can be achieved by sliding quickly from the left edge to the center.\n2.Please add it to white list avoid closing by system."</string>
+
+    <string name="notification_accessibility_off">"Edge Back server is off, click go to open it."</string>
 </resources>

@@ -16,6 +16,7 @@ public class PreferenceUtils {
     public static final String KEY_TOUCH_AREA_ON_LEFT = "KEY_TOUCH_AREA_ON_LEFT";
     public static final String KEY_THEME_COLOR = "KEY_THEME_COLOR";
     public static final String KEY_THEME_UNLOCK = "KEY_THEME_UNLOCK";
+    public static final String KEY_FREE_THEME_INDEX = "KEY_FREE_THEME_INDEX";
 
     public static void setBoolean(String key, boolean val) {
         PreferenceManager.getDefaultSharedPreferences(mApp).edit().putBoolean(key, val).apply();
@@ -137,5 +138,18 @@ public class PreferenceUtils {
      */
     public static String getThemeUnlock(String dafaultValue) {
         return getString(KEY_THEME_UNLOCK, dafaultValue);
+    }
+    /**
+     * 设置解锁的主题
+     */
+    public static void setFreeThemeIndex(String values) {
+        setString(KEY_FREE_THEME_INDEX, values);
+    }
+
+    /**
+     * 获取解锁的主题
+     */
+    public static String getFreeThemeIndex(String dafaultValue) {
+        return getString(KEY_FREE_THEME_INDEX, dafaultValue);
     }
 }

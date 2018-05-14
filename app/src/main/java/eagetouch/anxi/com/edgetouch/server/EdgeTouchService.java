@@ -1,16 +1,11 @@
 package eagetouch.anxi.com.edgetouch.server;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import eagetouch.anxi.com.edgetouch.EdgeTouchView;
-import eagetouch.anxi.com.edgetouch.MainActivity;
-import eagetouch.anxi.com.edgetouch.R;
 import eagetouch.anxi.com.edgetouch.utils.LogUtils;
 import eagetouch.anxi.com.edgetouch.utils.NotificationUtils;
 
@@ -73,6 +68,7 @@ public class EdgeTouchService extends Service {
     private void startFloatView() {
         LogUtils.d(TAG,"service startFloatView()");
         getFloatView().showFloatView();
+
     }
 
     private void resetTheme(){

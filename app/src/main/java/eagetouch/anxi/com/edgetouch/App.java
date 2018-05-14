@@ -2,6 +2,8 @@ package eagetouch.anxi.com.edgetouch;
 
 import android.app.Application;
 
+import eagetouch.anxi.com.edgetouch.utils.PreferenceUtils;
+
 
 /**
  * Created by user on 11/29/17.
@@ -16,6 +18,10 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if(PreferenceUtils.getFreeThemeIndex("").equals("")){
+            PreferenceUtils.setFreeThemeIndex("0,1,2,3");
+        }
     }
 
     public App() {

@@ -11,15 +11,28 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            multiDexEnabled true//启用multidex的支持
         }
     }
+
     signingConfigs {
+        debug {
+            storeFile file("../keystore.jks")
+            storePassword 'anxikeystore'
+            keyAlias 'key0'
+            keyPassword 'anxikey'
+        }
         release {
-            storeFile file("../platform.jks")
+            storeFile file("../keystore.jks")
             storePassword 'anxikeystore'
             keyAlias 'key0'
             keyPassword 'anxikey'
@@ -27,7 +40,7 @@ android {
     }
 
     /*添加渠道*/
-    productFlavors {
+   /*productFlavors {
         ali {}
         wandoujia {}
         qihu360 {}
@@ -60,10 +73,14 @@ android {
             }
             if (variant.buildType.name.equals('debug')) {
                 newName = getProductName() + "-v${defaultConfig.versionName}-" + variant.productFlavors[0].name + "-debug" + getDate() + ".apk"
-                output.outputFile = new File(oldFile.parent, newName)
+                output.outputFile = new File(oldFile.parent, "app-debug.apk")
             }
+            //if (variant.buildType.name.equals('debug')) {
+            //    newName = getProductName() + "-v${defaultConfig.versionName}-" + variant.productFlavors[0].name + "-debug" + getDate() + ".apk"
+             //   output.outputFile = new File(oldFile.parent, newName)
+            //}
         }
-    }
+    }*/
 }
 
 //获取产品名

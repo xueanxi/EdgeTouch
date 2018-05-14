@@ -6,6 +6,13 @@
         <item>#F0592B</item>
         <item>#FE194E</item>
         <item>#00ffffff</item>
+    </string-array>
+
+    <string-array name="theme_colors2" translatable="false">
+        <item>#34BCD1</item>
+        <item>#F0592B</item>
+        <item>#FE194E</item>
+        <item>#00ffffff</item>
         <item>#009688</item>
         <item>#FFB415</item>
         <item>#FA699E</item>
@@ -14,10 +21,16 @@
         <item>#a16302</item>
         <item>#0808ed</item>
         <item>#000000</item>
-
     </string-array>
 
     <string-array name="theme_colors_title" translatable="false">
+        <item>@string/theme_color_blue</item>
+        <item>@string/theme_color_orange</item>
+        <item>@string/theme_color_red</item>
+        <item>@string/theme_color_alpha</item>
+    </string-array>
+
+    <string-array name="theme_colors_title2" translatable="false">
         <item>@string/theme_color_blue</item>
         <item>@string/theme_color_orange</item>
         <item>@string/theme_color_red</item>
